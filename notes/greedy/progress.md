@@ -18,6 +18,7 @@ fewer hints, and harder problems.
 | 2026-09-19 | Drill 1, attempt 2: Jump Game II | Medium | A | Incorrect | 1 | No | Fixed the one-element case. Changed the increment to fire whenever the farthest reach improves. Still no layer boundary: reach can improve several times inside one layer. Failing input [2,3,4,1,1,1]: returned 3, answer 2. Wrong on a large share of random arrays. Hint given: the layer end must be stored separately from the farthest reach, because reach changes while you are still inside the layer. |
 | 2026-09-19 | Drill 1, attempt 3: Jump Game II, explicit-layer shape | Medium | A | Structurally correct, one off-by-one | 1 | Mostly | Algorithm is now right: layer lo..hi, inner loop finds new_hi, one jump per layer. Two name typos (`low` vs `lo`, `num` vs `nums`) mean it does not run as written. One logic bug: loop guard `hi < sz` should stop when hi already covers the last index, so it runs one extra layer. Trace on [2,3,1,1,4] gives 3, answer 2. One-element input gives 1 for the same reason. Changing the guard by one makes it pass 5000 random arrays. Different failure class from attempts 1 and 2: those were missing a concept in code; this is a boundary. |
 | 2026-09-19 | Drill 1, attempt 4: Jump Game II, explicit-layer shape | Medium | A | Logic correct; not runnable as pasted | 0 | Yes | Loop guard fixed to `hi < sz - 1`. With names made consistent, passes 5000 random arrays and the one-element case. Mechanical issues: missing closing parenthesis on the max line (SyntaxError), counter initialised as `jmp` but incremented and returned as `jump` (NameError), one line indented differently (possibly a paste artifact). Naming mismatch between definition and use is now 2 of 4 attempts. |
+| 2026-09-19 | Jump Game (LC 55) written in code, unprompted | Medium | A | Incorrect | 0 | No | Wrote the fuel rule with `fuel += nums[i]` instead of `fuel = max(fuel, nums[i])`. This is the same add-vs-max slip corrected in the hand trace earlier today, now reappearing in code. Fails [2,1,0,0] (says True, truth False). Also declared an unused `jump` variable. |
 
 ## Skills checklist
 
@@ -37,7 +38,8 @@ fewer hints, and harder problems.
 - Learner chose (2026-09-19) to stay on Pattern A until it is interview-ready
   in code, not just in description. Plan is in `pattern-a-drill.md`, revised
   the same day after drill 1 showed the gap is idea-to-code, not the idea.
-- Drill 1 logic passed on attempt 4 (2026-09-19). Session ended there.
+- Drill 1 logic passed on attempt 4 (2026-09-19). Learner then wrote Jump Game in code and the add-vs-max slip returned.
+- Next session: cold rewrite of BOTH Jump Game and Jump Game II under the protocol, Jump Game first.
 - Next session opens with a cold rewrite of Jump Game II under the four-step
   protocol (state table, code, self-trace on two inputs, then run).
 - Then Stock II, Partition Labels, Gas Station, Video Stitching (stretch),
@@ -61,7 +63,7 @@ is fully present and only a boundary is off. That is progress, not noise.
 ## Recurring themes to watch
 
 - Committing to a specific choice (a landing index) instead of tracking the best over everything seen. Greedy in Pattern A never commits; it keeps a running max. Reappeared once (Jump Game). Revisit in Jump Game II.
-- Treating a reach value as a stockpile that accumulates (added fuel instead of taking the max). Jumps do not stack: landing on an index resets your reach to what that index offers, if that is better. Seen once (Jump Game trace).
+- Treating a reach value as a stockpile that accumulates (added fuel instead of taking the max). Jumps do not stack: landing on an index resets your reach to what that index offers, if that is better. Seen twice: the Jump Game hand trace, and again in code the same day after being corrected. This one is not yet fixed by correction alone; it needs the state-table step ("fuel is a reach, not a stockpile" written down before code).
 - Acting at every index instead of only at a boundary. Drill 1 incremented the jump count on every index; the verbal description had the layer boundary, the code did not. Same family as the landing-spot commitment above: greedy in Pattern A acts only when a boundary condition fires. Seen twice now.
 
 ## Observations
