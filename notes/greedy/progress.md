@@ -14,6 +14,7 @@ fewer hints, and harder problems.
 | 2026-09-19 | Jump Game trace on [3,0,2,0,1] | Medium | A | Right conclusion, wrong rule | 1 | Partly | Applied fuel = fuel - 1 + nums[i] (addition) at index 2 instead of max(fuel - 1, nums[i]). Reached the correct true/false answer by luck of the input. Falsified with [2,1,0,0]: addition says true, truth is false. |
 | 2026-09-19 | Jump Game trace on [2,1,0,0] | Medium | A | Correct | 0 | Yes | Fuel 2, 1, 0, then negative at index 3. Applied the max rule correctly and stated the stuck condition in terms of fuel. |
 | 2026-09-19 | Jump Game II (LC 45) | Medium | A | Correct | 1 | Yes | Given the layer framing as a hint, derived the algorithm: farthest reach per layer, count layers until the last index is covered. Did not name the two variables explicitly but described exactly what they do. |
+| 2026-09-19 | Drill 1: Jump Game II written cold (Python) | Medium | A | Incorrect | 0 so far | No | Passed both textbook examples, failed 2962 of 5000 random arrays. Bug 1: one-element input returns 1, should be 0. Bug 2: `jump += 1` on every index, so it counts indexes visited, not layers; the layer boundary variable from the verbal description was dropped in code. Failing input [3,1,1,1,4]: returned 4, answer 2. Good parts: farthest-reach update is correct (max, not add), and the early return when farthest covers the end is a valid optimization. Learner asked to fix it themselves. |
 
 ## Skills checklist
 
@@ -40,9 +41,11 @@ fewer hints, and harder problems.
 
 - Committing to a specific choice (a landing index) instead of tracking the best over everything seen. Greedy in Pattern A never commits; it keeps a running max. Reappeared once (Jump Game). Revisit in Jump Game II.
 - Treating a reach value as a stockpile that accumulates (added fuel instead of taking the max). Jumps do not stack: landing on an index resets your reach to what that index offers, if that is better. Seen once (Jump Game trace).
+- Acting at every index instead of only at a boundary. Drill 1 incremented the jump count on every index; the verbal description had the layer boundary, the code did not. Same family as the landing-spot commitment above: greedy in Pattern A acts only when a boundary condition fires. Seen twice now.
 
 ## Observations
 
+- 2026-09-19: Interview language is Python (learner wrote drill 1 in Python; no other preference stated).
 - 2026-09-19: Learner had a different code shape in mind for Jump Game II
   (explicit loop over each layer's indexes). It is correct and O(n); recorded
   both shapes and the transformation between them in the drill plan.
