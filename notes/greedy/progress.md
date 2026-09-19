@@ -13,6 +13,7 @@ fewer hints, and harder problems.
 | 2026-09-19 | Jump Game (LC 55) | Medium | A | Partially correct | 1 | Partly | Tracked "jumps I can still make" (remaining fuel), which is a valid quantity. Gap: measured fuel from "the last index I was at", i.e. committed to a landing spot. Counterexample [3,0,2,0,1]: jumping farthest lands on a 0 and fails, but the answer is true. Fix: refresh fuel at every index passed, never commit. Stuck condition stated as "array value is 0 here"; refined to "fuel is 0 here". |
 | 2026-09-19 | Jump Game trace on [3,0,2,0,1] | Medium | A | Right conclusion, wrong rule | 1 | Partly | Applied fuel = fuel - 1 + nums[i] (addition) at index 2 instead of max(fuel - 1, nums[i]). Reached the correct true/false answer by luck of the input. Falsified with [2,1,0,0]: addition says true, truth is false. |
 | 2026-09-19 | Jump Game trace on [2,1,0,0] | Medium | A | Correct | 0 | Yes | Fuel 2, 1, 0, then negative at index 3. Applied the max rule correctly and stated the stuck condition in terms of fuel. |
+| 2026-09-19 | Jump Game II (LC 45) | Medium | A | Correct | 1 | Yes | Given the layer framing as a hint, derived the algorithm: farthest reach per layer, count layers until the last index is covered. Did not name the two variables explicitly but described exactly what they do. |
 
 ## Skills checklist
 
@@ -20,7 +21,7 @@ fewer hints, and harder problems.
 - [x] Knows greedy can fail (coin counterexample)
 - [x] Pattern A: identifies the single running value to track (stock)
 - [x] Pattern A: applies it to reachability (Jump Game), with one hint
-- [ ] Pattern A: applies it to counting steps (Jump Game II)
+- [x] Pattern A: applies it to counting steps (Jump Game II), with the layer hint
 - [ ] Can state an exchange argument in one sentence without prompting
 - [ ] Pattern B: sort-by-end interval sweep
 - [ ] Pattern C: heap-driven scheduling
@@ -28,8 +29,11 @@ fewer hints, and harder problems.
 
 ## Next session plan
 
-- Jump Game II (LC 45): in progress, learner proposes the extra tracked value first.
-- Then close out Pattern A and move to Pattern B.
+- Pattern A is complete (3 problems). Later, a cold re-test of Jump Game II
+  without the layer hint to confirm retention.
+- Pattern B: Non-overlapping Intervals (LC 435) first. Learner proposes the
+  sort key and which interval to keep.
+- Then Min Arrows to Burst Balloons (LC 452) and Employee Free Time (LC 759).
 
 ## Recurring themes to watch
 

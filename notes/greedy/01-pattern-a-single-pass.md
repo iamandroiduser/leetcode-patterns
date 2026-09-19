@@ -117,3 +117,60 @@ Time O(n), space O(1).
 ## Problem 3: Jump Game II (LC 45, Medium) — after that
 
 Same setup, guaranteed reachable. Return the minimum number of jumps.
+
+### Jump Game II — solution
+
+**Learner's answer (2026-09-19, correct idea, layer framing supplied as a hint):**
+start at index 0, find the farthest index reachable with one jump; every index
+up to there is the next set of launch points; scan them to find the farthest
+reachable with two jumps; repeat until the farthest reaches the last index; the
+number of layers is the answer. (One verbal slip: said "equal to or less than the
+last index" where "equal to or greater than" was meant; the follow-up sentence
+had it right.)
+
+**The two numbers:** `layer_end`, the last index of the current layer, and
+`farthest`, the best reach seen from any index in the current layer. When the
+scan index reaches `layer_end`, one jump is counted and `layer_end` becomes
+`farthest`.
+
+**Why this is the minimum:** the layers are exactly breadth-first search levels
+on the "can jump to" graph, and BFS level equals shortest path length. Because
+each layer is a contiguous range of indexes, one boundary number is enough to
+represent it, which is what makes this O(n) instead of a real BFS with a queue.
+
+**Code (Python):**
+
+```python
+def jump(nums):
+    jumps = 0
+    layer_end = 0      # last index of the current layer
+    farthest = 0       # farthest index anyone in this layer can reach
+    for i in range(len(nums) - 1):        # never jump FROM the last index
+        farthest = max(farthest, i + nums[i])
+        if i == layer_end:                # layer finished: a jump must have happened
+            jumps += 1
+            layer_end = farthest
+    return jumps
+```
+
+Verified against a brute-force shortest-path solver on 3000 random arrays.
+
+Trace on `[2,3,1,1,4]`:
+
+| i | nums[i] | farthest | layer_end after | jumps |
+|---|---------|----------|-----------------|-------|
+| 0 | 2 | 2 | 2 | 1 |
+| 1 | 3 | 4 | 2 | 1 |
+| 2 | 1 | 4 | 4 | 2 |
+| 3 | 1 | 4 | 4 | 2 |
+
+Two edge cases the loop bound handles: a one-element array returns 0, and the
+scan stops before the last index so it never counts a jump from the end.
+
+## Pattern A summary
+
+- Stock: track the minimum so far.
+- Jump Game: track the farthest reach so far (or remaining fuel). Never commit
+  to a landing spot. Take the max, do not add.
+- Jump Game II: same scan, plus a layer boundary that tells you when a jump
+  must have happened.
