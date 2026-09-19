@@ -29,11 +29,12 @@ fewer hints, and harder problems.
 
 ## Next session plan
 
-- Pattern A is complete (3 problems). Later, a cold re-test of Jump Game II
-  without the layer hint to confirm retention.
-- Pattern B: Non-overlapping Intervals (LC 435) first. Learner proposes the
-  sort key and which interval to keep.
-- Then Min Arrows to Burst Balloons (LC 452) and Employee Free Time (LC 759).
+- Learner chose (2026-09-19) to stay on Pattern A until it is interview-ready
+  in code, not just in description. Plan is in `pattern-a-drill.md`.
+- Drill order: Jump Game II cold in code, Stock II, Partition Labels, Gas
+  Station, Video Stitching (stretch).
+- Pattern B (Non-overlapping Intervals first) starts once the drill exit
+  criteria are met.
 
 ## Recurring themes to watch
 
@@ -41,6 +42,10 @@ fewer hints, and harder problems.
 - Treating a reach value as a stockpile that accumulates (added fuel instead of taking the max). Jumps do not stack: landing on an index resets your reach to what that index offers, if that is better. Seen once (Jump Game trace).
 
 ## Observations
+
+- 2026-09-19: Learner had a different code shape in mind for Jump Game II
+  (explicit loop over each layer's indexes). It is correct and O(n); recorded
+  both shapes and the transformation between them in the drill plan.
 
 - 2026-09-19: Preferred plain chat over a narrated read-along page (browser
   voices were poor). Keep lessons in chat, short sections, one question at the

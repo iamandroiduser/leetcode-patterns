@@ -8,8 +8,8 @@ plan the next session and to track improvement over time.
 
 | # | Pattern | The move | Problems (repo list unless noted) | Status |
 |---|---------|----------|-----------------------------------|--------|
-| A | Single pass, track one number | Scan once, keep a running "best so far" | Best Time to Buy and Sell Stock, Jump Game, Jump Game II (not in repo list) | Done 2026-09-19 |
-| B | Sort intervals, then sweep | Sort by end, keep the interval that ends earliest | Non-overlapping Intervals (not in repo list), Min Arrows to Burst Balloons, Employee Free Time | In progress |
+| A | Single pass, track one number | Scan once, keep a running "best so far" | Best Time to Buy and Sell Stock, Jump Game, Jump Game II (not in repo list) | Concepts done 2026-09-19; drilling in code (see `pattern-a-drill.md`) |
+| B | Sort intervals, then sweep | Sort by end, keep the interval that ends earliest | Non-overlapping Intervals (not in repo list), Min Arrows to Burst Balloons, Employee Free Time | Not started |
 | C | Heap, most frequent first | Always spend the item with the largest remaining count | Reorganize String, Task Scheduler, Rearrange String k Distance Apart | Not started |
 | D | Sort by deadline, heap for regret | Take everything; when you overshoot, evict the worst earlier choice | Course Schedule III | Not started |
 
