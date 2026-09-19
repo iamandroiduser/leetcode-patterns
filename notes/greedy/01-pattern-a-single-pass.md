@@ -57,8 +57,62 @@ reach the last index?
 
 Examples: `[2,3,1,1,4]` -> true. `[3,2,1,0,4]` -> false.
 
-Question for the learner before the solution: which single number do you track
-while scanning left to right, and what condition means "stuck"?
+**Learner's answer (2026-09-19, partially correct, 1 hint):** track "how many
+jumps I can still make", measured from the last index landed on; stuck when
+standing on a 0 that is not the last index.
+
+**What was right:** remaining reach ("fuel") is a valid single number to track.
+
+**The gap:** "from the last index I was at" commits to a landing spot. Greedy
+never commits. Counterexample: `[3,0,2,0,1]`. Jumping as far as possible from
+index 0 lands on index 3 (value 0) and fails, yet the answer is true via index 2.
+
+**The fix:** refresh fuel at every index you pass, not only where you land.
+Fuel at index i = max(fuel from before minus 1, nums[i]). Stuck when fuel would
+go negative before the last index. That always happens while standing on a 0,
+so the learner's zero intuition was right, but the test is on fuel, not on the
+array value.
+
+**Exchange argument:** whatever landing spots an optimal path uses, the fuel
+rule at every index is at least as large as that path's remaining reach, so
+the fuel rule never gets stuck when a real path exists.
+
+**Code (Python), fuel version:**
+
+```python
+def can_jump(nums):
+    fuel = nums[0]
+    for i in range(1, len(nums)):
+        fuel -= 1                      # one step costs one unit
+        if fuel < 0:
+            return False               # could not even reach index i
+        fuel = max(fuel, nums[i])      # refuel if this index offers more
+    return True
+```
+
+**Equivalent "farthest index" version** (what most write-ups show):
+
+```python
+def can_jump(nums):
+    farthest = 0
+    for i, n in enumerate(nums):
+        if i > farthest:
+            return False
+        farthest = max(farthest, i + n)
+    return True
+```
+
+Trace of the fuel rule on `[3,0,2,0,1]`:
+
+| i | nums[i] | fuel after |
+|---|---------|------------|
+| 0 | 3 | 3 |
+| 1 | 0 | 2 |
+| 2 | 2 | 2 |
+| 3 | 0 | 1 |
+| 4 | 1 | 1 (reached) |
+
+Time O(n), space O(1).
 
 ## Problem 3: Jump Game II (LC 45, Medium) — after that
 
