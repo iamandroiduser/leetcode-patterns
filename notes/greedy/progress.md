@@ -20,6 +20,7 @@ fewer hints, and harder problems.
 | 2026-09-19 | Drill 1, attempt 4: Jump Game II, explicit-layer shape | Medium | A | Logic correct; not runnable as pasted | 0 | Yes | Loop guard fixed to `hi < sz - 1`. With names made consistent, passes 5000 random arrays and the one-element case. Mechanical issues: missing closing parenthesis on the max line (SyntaxError), counter initialised as `jmp` but incremented and returned as `jump` (NameError), one line indented differently (possibly a paste artifact). Naming mismatch between definition and use is now 2 of 4 attempts. |
 | 2026-09-19 | Jump Game (LC 55) written in code, unprompted | Medium | A | Incorrect | 0 | No | Wrote the fuel rule with `fuel += nums[i]` instead of `fuel = max(fuel, nums[i])`. This is the same add-vs-max slip corrected in the hand trace earlier today, now reappearing in code. Fails [2,1,0,0] (says True, truth False). Also declared an unused `jump` variable. |
 | 2026-09-19 (session 2) | Jump Game (LC 55), cold, under protocol | Medium | A | Correct | 0 | Yes | Step 1 state table took two rounds (change-event column first said when, not what; meaning sentence still says "previously picked idx" though the formula and the stated reason for max are right). Step 2 code correct as pasted: names consistent, check placed between decrement and max, one-element handled. Passes 10000 random arrays vs brute force. Step 3 (self-trace) was skipped; traces requested after the fact. First Pattern A code that ran correctly on first paste. |
+| 2026-09-19 (session 2) | Jump Game II (LC 45), cold, under protocol, single-scan shape | Medium | A | Correct | 0 | Yes | Step 1 took two rounds: first table put the jump condition on the farthest-reach variable and defined the layer end as a per-index value (failure class 1, caught in the table, not in code). Second table correct; learner's own trace of it found the extra-jump boundary at the last index (class 2, caught before code) and chose an early exit plus a one-element guard. Code correct as pasted, names consistent, passes 10000 random arrays vs brute force. Step 3 half-done: traced the textbook example during the table phase, reasoned about [0] in words, did not trace [1,1,1,1]. |
 
 ## Skills checklist
 
@@ -28,7 +29,7 @@ fewer hints, and harder problems.
 - [x] Pattern A: identifies the single running value to track (stock)
 - [x] Pattern A: applies it to reachability (Jump Game), with one hint
 - [x] Pattern A: applies it to counting steps (Jump Game II), with the layer hint
-- [ ] Drill: Jump Game II written cold and runnable as pasted (logic passed 2026-09-19 after 4 attempts; mechanics not yet clean)
+- [x] Drill: Jump Game II written cold and runnable as pasted (session 2, first paste under the protocol; session 1 took 4 attempts)
 - [ ] Can state an exchange argument in one sentence without prompting
 - [ ] Pattern B: sort-by-end interval sweep
 - [ ] Pattern C: heap-driven scheduling
@@ -40,7 +41,8 @@ fewer hints, and harder problems.
   in code, not just in description. Plan is in `pattern-a-drill.md`, revised
   the same day after drill 1 showed the gap is idea-to-code, not the idea.
 - Drill 1 logic passed on attempt 4 (2026-09-19). Learner then wrote Jump Game in code and the add-vs-max slip returned.
-- Session 2 (2026-09-19): Jump Game passed cold under the protocol. Jump Game II next, same protocol.
+- Session 2 (2026-09-19): Jump Game and Jump Game II both passed cold on first paste under the protocol. Time per drill not measured; exit criterion 1 counted as met on correctness, timing to be checked once.
+- Exit criterion 2 (two unseen variants, at most one hint each): Stock II next, then Partition Labels.
 - Then Stock II, Partition Labels, Gas Station, Video Stitching (stretch),
   each under the same protocol, scored per stage.
 - Pattern B starts once the exit criteria in the drill plan are met.
