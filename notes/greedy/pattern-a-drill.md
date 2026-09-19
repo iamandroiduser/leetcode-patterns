@@ -11,7 +11,41 @@ trace, in interview time. Descriptions are done; this is about code.
   hint each.
 - Can say the exchange argument for each in one sentence.
 
-## The description-to-code bridge (use this every time)
+## Revised 2026-09-19: the gap is idea-to-code
+
+Drill 1 showed the algorithm was understood but three code attempts failed,
+each in a different way (see `progress.md`, "Where the gap is"). So the drill
+is no longer "solve these problems". It is "run this four-step protocol on
+these problems", and each step is scored separately so we can see which step
+leaks.
+
+### The four-step protocol (mandatory on every drill)
+
+1. **State table, before any code.** One row per variable: name, meaning in
+   plain words, initial value, and the exact event that changes it. If the
+   verbal description mentions a concept ("where the layer ends") that has no
+   row, that is the bug from attempts 1 and 2, caught before it is written.
+2. **Code, translated row by row.** Every row becomes an assignment before the
+   loop and an update inside it. No variable in the code that is not in the
+   table, no row in the table that is not in the code. Re-read every name once
+   for consistency (attempt 3 typos).
+3. **Self-trace on two inputs before submitting.** The textbook example, and
+   a one-element input. Write the state after every iteration as a table. The
+   loop guard bug in attempt 3 shows up on the very first example as 3 instead
+   of 2. For any loop guard, ask: what is the last iteration that should run,
+   and does the guard let exactly that one through?
+4. **Run it.** Only after step 3. Paste both the trace and the code.
+
+Scoring per stage in the progress log: state table (right/wrong), code
+matches table (yes/no), self-trace caught the bug (yes/no/no bug), run result.
+
+### Interview translation
+
+In a live interview the same protocol is spoken aloud: name the variables and
+what changes them (step 1), write (step 2), trace one example on the board
+before saying "done" (step 3). Interviewers score step 3 highly.
+
+## The description-to-code bridge (the five questions behind step 1)
 
 Every Pattern A solution answers five questions. Write the answers as comments
 first, then fill in code under each.
@@ -82,7 +116,7 @@ loop would have finished.
 
 | # | Problem | Difficulty | Running value | Why it is here | Verified |
 |---|---------|------------|---------------|----------------|----------|
-| 1 | Jump Game II, written cold | Medium | farthest + layer boundary | Retention check, code not description | yes |
+| 1 | Jump Game II, written cold | Medium | farthest + layer boundary | Retention check, code not description. Attempted 3 times 2026-09-19; to be redone cold next session under the protocol. | yes |
 | 2 | Best Time to Buy and Sell Stock II (LC 122) | Medium | none beyond previous price | Multiple buys/sells; answer is the sum of positive day-to-day gains. Exchange argument: any transaction spanning several days equals the sum of its daily steps, and dropping the negative steps never hurts. | vs DP on 3000 random inputs |
 | 3 | Partition Labels (LC 763) | Medium | farthest last-occurrence + cut point | Jump Game II in disguise: cut when i reaches the farthest boundary. Tests whether the layer idea transfers. | example gives [9,7,8] |
 | 4 | Gas Station (LC 134) | Medium | running tank + candidate start | Adds "reset the start" to the scan. Exchange argument: if the tank goes negative at i starting from s, no start in s..i can work either, so skip to i+1. | vs brute force on 3000 inputs |
