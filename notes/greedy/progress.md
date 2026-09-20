@@ -22,6 +22,7 @@ fewer hints, and harder problems.
 | 2026-09-19 (session 2) | Jump Game (LC 55), cold, under protocol | Medium | A | Correct | 0 | Yes | Step 1 state table took two rounds (change-event column first said when, not what; meaning sentence still says "previously picked idx" though the formula and the stated reason for max are right). Step 2 code correct as pasted: names consistent, check placed between decrement and max, one-element handled. Passes 10000 random arrays vs brute force. Step 3 (self-trace) was skipped; traces requested after the fact. First Pattern A code that ran correctly on first paste. |
 | 2026-09-19 (session 2) | Jump Game II (LC 45), cold, under protocol, single-scan shape | Medium | A | Correct | 0 | Yes | Step 1 took two rounds: first table put the jump condition on the farthest-reach variable and defined the layer end as a per-index value (failure class 1, caught in the table, not in code). Second table correct; learner's own trace of it found the extra-jump boundary at the last index (class 2, caught before code) and chose an early exit plus a one-element guard. Code correct as pasted, names consistent, passes 10000 random arrays vs brute force. Step 3 half-done: traced the textbook example during the table phase, reasoned about [0] in words, did not trace [1,1,1,1]. |
 | 2026-09-20 (session 2) | Best Time to Buy and Sell Stock II (LC 122), unseen variant | Medium | A | Incorrect, boundary | 1 | Mostly | Algorithm right on first try (sum of positive daily steps) with the exchange argument supplied by the coach. Exit row was requested and skipped. Loop bound `range(sz - 2)` misses the last pair: [1,2] returns 0, [1,2,3,4,5] returns 3. Passed all three requested traces by luck (the last step in each is not a gain). Notable: the hand trace had 5 rows for a loop that visits 4 indexes, so the trace was of the intended algorithm, not the code as written. |
+| 2026-09-20 (session 2) | Stock II, fix | Medium | A | Correct | 1 total | Yes | Bound fixed to `range(sz - 1)`; passes 10000 random arrays vs DP. But the two accompanying traces were wrong: every gain written as 0 on [1,2] (answer 1) and [1,2,3,4,5] (answer 4). The i columns now match the loop. The trace's final value disagreed with the known expected output and this was not flagged. |
 
 ## Skills checklist
 
@@ -43,7 +44,7 @@ fewer hints, and harder problems.
   the same day after drill 1 showed the gap is idea-to-code, not the idea.
 - Drill 1 logic passed on attempt 4 (2026-09-19). Learner then wrote Jump Game in code and the add-vs-max slip returned.
 - Session 2 (2026-09-19): Jump Game and Jump Game II both passed cold on first paste under the protocol. Time per drill not measured; exit criterion 1 counted as met on correctness, timing to be checked once.
-- Exit criterion 2 (two unseen variants, at most one hint each): Stock II next, then Partition Labels.
+- Exit criterion 2 (two unseen variants, at most one hint each): Stock II done with 1 hint (2026-09-20). Partition Labels next.
 - Then Stock II, Partition Labels, Gas Station, Video Stitching (stretch),
   each under the same protocol, scored per stage.
 - Pattern B starts once the exit criteria in the drill plan are met.
@@ -68,6 +69,11 @@ is fully present and only a boundary is off. That is progress, not noise.
   written. On Stock II the trace had one more row than the loop visits. Rule
   added: in step 3, write the list of i values the loop actually visits
   before tracing, straight from the range expression.
+- 2026-09-20: On the Stock II fix, the i columns were right but every gain
+  value was 0 on inputs whose answers are 1 and 4. A trace whose last row
+  does not equal the expected output is a red flag in itself. Rule added:
+  step 3 ends by comparing the trace's final value with the expected output
+  and saying "match" or "mismatch".
 
 ## Recurring themes to watch
 

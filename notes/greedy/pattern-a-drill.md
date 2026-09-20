@@ -32,7 +32,7 @@ leaks.
 3. **Self-trace on two inputs before submitting.** The textbook example, and
    a one-element input. First write out the exact list of i values the loop
    visits, computed from the range expression, and trace only those rows
-   (Stock II: the trace had 5 rows for a loop that visits 4). Write the state after every iteration as a table. The
+   (Stock II: the trace had 5 rows for a loop that visits 4). End the trace by comparing its final value with the expected output and writing "match" or "mismatch". Write the state after every iteration as a table. The
    loop guard bug in attempt 3 shows up on the very first example as 3 instead
    of 2. For any loop guard, ask: what is the last iteration that should run,
    and does the guard let exactly that one through?
