@@ -23,6 +23,7 @@ fewer hints, and harder problems.
 | 2026-09-19 (session 2) | Jump Game II (LC 45), cold, under protocol, single-scan shape | Medium | A | Correct | 0 | Yes | Step 1 took two rounds: first table put the jump condition on the farthest-reach variable and defined the layer end as a per-index value (failure class 1, caught in the table, not in code). Second table correct; learner's own trace of it found the extra-jump boundary at the last index (class 2, caught before code) and chose an early exit plus a one-element guard. Code correct as pasted, names consistent, passes 10000 random arrays vs brute force. Step 3 half-done: traced the textbook example during the table phase, reasoned about [0] in words, did not trace [1,1,1,1]. |
 | 2026-09-20 (session 2) | Best Time to Buy and Sell Stock II (LC 122), unseen variant | Medium | A | Incorrect, boundary | 1 | Mostly | Algorithm right on first try (sum of positive daily steps) with the exchange argument supplied by the coach. Exit row was requested and skipped. Loop bound `range(sz - 2)` misses the last pair: [1,2] returns 0, [1,2,3,4,5] returns 3. Passed all three requested traces by luck (the last step in each is not a gain). Notable: the hand trace had 5 rows for a loop that visits 4 indexes, so the trace was of the intended algorithm, not the code as written. |
 | 2026-09-20 (session 2) | Stock II, fix | Medium | A | Correct | 1 total | Yes | Bound fixed to `range(sz - 1)`; passes 10000 random arrays vs DP. But the two accompanying traces were wrong: every gain written as 0 on [1,2] (answer 1) and [1,2,3,4,5] (answer 4). The i columns now match the loop. The trace's final value disagreed with the known expected output and this was not flagged. |
+| 2026-09-20 (session 2) | Partition Labels (LC 763), unseen variant, attempt 1 | Medium | A | Incorrect | 1 | Partly | Key insight correct (last occurrence of each letter decides the extent). State table effectively skipped: one row with a prose change column, no precomputation row, no row for the running farthest or the part start. Code: crashes with TypeError because `for c, i in enumerate(...)` swaps index and char; with that fixed, the cut condition compares i against a pre-set boundary copied from Jump Game II, so after the first part the boundary never moves (part_ids [0, 8], then nothing). Also `part_len` vs `part_lens` (name class, third time), the length-conversion loop bound is `sz - 1` instead of the number of parts, and the end-of-string append sits inside the loop and would fire repeatedly. Hint given: the cut fires when i reaches the running farthest itself, unlike Jump Game II. |
 
 ## Skills checklist
 
@@ -58,12 +59,14 @@ Game II, none passed as submitted. Breakdown by failure class:
 |-------|----------|---------|
 | State variable present in the description, dropped in code | 1, 2 | layer boundary missing, counter fired per index / per reach improvement |
 | Boundary / off-by-one | 1, 3, Stock II | one-element case; loop guard runs one extra layer; loop bound one short |
-| Name defined one way, used another | 3, 4 | `low` vs `lo`, `num` vs `nums`, then `jmp` vs `jump` |
+| Name defined one way, used another | 3, 4, Partition Labels | `low` vs `lo`, `num` vs `nums`, `jmp` vs `jump`, `part_len` vs `part_lens`; also `for c, i in enumerate` with roles swapped |
 
 Attempt 3 is a different kind of wrong from attempts 1 and 2: the algorithm
 is fully present and only a boundary is off. That is progress, not noise.
 
 ## Protocol observations
+
+- 2026-09-20: Partition Labels attempt 1 skipped the state table (one vague row) and the code had five distinct problems. The two cold passes earlier the same day both had full tables. Strongest evidence yet that the table is load-bearing, not ceremony.
 
 - 2026-09-20: A self-trace only catches bugs if it traces the code as
   written. On Stock II the trace had one more row than the loop visits. Rule
