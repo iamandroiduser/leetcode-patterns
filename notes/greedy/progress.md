@@ -26,6 +26,7 @@ fewer hints, and harder problems.
 | 2026-09-20 (session 2) | Partition Labels (LC 763), unseen variant, attempt 1 | Medium | A | Incorrect | 1 | Partly | Key insight correct (last occurrence of each letter decides the extent). State table effectively skipped: one row with a prose change column, no precomputation row, no row for the running farthest or the part start. Code: crashes with TypeError because `for c, i in enumerate(...)` swaps index and char; with that fixed, the cut condition compares i against a pre-set boundary copied from Jump Game II, so after the first part the boundary never moves (part_ids [0, 8], then nothing). Also `part_len` vs `part_lens` (name class, third time), the length-conversion loop bound is `sz - 1` instead of the number of parts, and the end-of-string append sits inside the loop and would fire repeatedly. Hint given: the cut fires when i reaches the running farthest itself, unlike Jump Game II. |
 | 2026-09-20 (session 2) | Partition Labels, attempt 2 | Medium | A | Incorrect | 1 (no new hint) | Partly | Cut condition now correct (i equals the running farthest). Table and traces skipped again despite an explicit request. Three name mismatches in 16 lines: `char_end` vs `char_ends`, `part_strat` vs `part_start`, `max_part_id` initialised but `last_part_id` used (NameError as pasted). With names made consistent, one boundary bug: the next part's start is set to i instead of i + 1, so every part after the first is one too long: [9, 8, 9] instead of [9, 7, 8], and "ab" gives [1, 2]. Coach now requires table and traces before running further pastes. |
 | 2026-09-20 (session 2) | Partition Labels, attempt 3 | Medium | A | Logic correct; not runnable as pasted | 1 total | Yes | Full table provided (one row's formula still says the old `= max_part_end` while the code correctly says `i + 1`). Boundary fixed. With names made consistent, passes 10000 random strings. As pasted: NameError, and the two broken names are the same two as attempt 2, unchanged: `char_end` read where `char_ends` is defined, and `last_part_end` read where `max_part_end` is defined. The table itself has the right names, so the code deviated from the table. Traces skipped a third time. |
+| 2026-09-20 (session 2) | Partition Labels, attempt 4 | Medium | A | Correct, runnable | 1 total | Yes | All names consistent; passes 10000 random strings. Needs `from collections import defaultdict` in a fresh file (a plain dict would avoid it). The name-audit lists were not pasted. The corrected table row still says `part_start_id = i` where the code says `i + 1`, so the table and code still disagree on the exact line that was the attempt-2 bug. Trace on "ab" correct in values, abbreviated to two columns, no match/mismatch word. |
 
 ## Skills checklist
 
@@ -35,6 +36,8 @@ fewer hints, and harder problems.
 - [x] Pattern A: applies it to reachability (Jump Game), with one hint
 - [x] Pattern A: applies it to counting steps (Jump Game II), with the layer hint
 - [x] Drill: Jump Game II written cold and runnable as pasted (session 2, first paste under the protocol; session 1 took 4 attempts)
+- [x] Pattern A variant: Stock II (1 hint, 2 attempts)
+- [x] Pattern A variant: Partition Labels (1 hint, 4 attempts, runnable on the 4th)
 - [ ] Can state an exchange argument in one sentence without prompting
 - [ ] Pattern B: sort-by-end interval sweep
 - [ ] Pattern C: heap-driven scheduling
@@ -47,7 +50,8 @@ fewer hints, and harder problems.
   the same day after drill 1 showed the gap is idea-to-code, not the idea.
 - Drill 1 logic passed on attempt 4 (2026-09-19). Learner then wrote Jump Game in code and the add-vs-max slip returned.
 - Session 2 (2026-09-19): Jump Game and Jump Game II both passed cold on first paste under the protocol. Time per drill not measured; exit criterion 1 counted as met on correctness, timing to be checked once.
-- Exit criterion 2 (two unseen variants, at most one hint each): Stock II done with 1 hint, Partition Labels logic done with 1 hint (2026-09-20). Criterion met on hints, NOT on runnability: Partition Labels was never runnable as pasted in three attempts. Criterion amended, see drill plan.
+- Exit criterion 2 (two unseen variants, at most one hint each): Stock II done with 1 hint, Partition Labels logic done with 1 hint (2026-09-20). Partition Labels runnable on attempt 4. Both variant criteria now met, with the caveat that the mechanics took 6 attempts across the two.
+- Decision (coach, 2026-09-20): one last Pattern A item, Gas Station, self-timed, full protocol. Then Pattern B regardless of result; the residual gap (names, skipped traces) is practiced on any problem, so more Pattern A variants do not target it.
 - Then Stock II, Partition Labels, Gas Station, Video Stitching (stretch),
   each under the same protocol, scored per stage.
 - Pattern B starts once the exit criteria in the drill plan are met.
