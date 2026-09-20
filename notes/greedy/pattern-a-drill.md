@@ -8,7 +8,9 @@ trace, in interview time. Descriptions are done; this is about code.
 - Writes Jump Game II from scratch, no hints, in under 10 minutes, with a
   correct trace on one example.
 - Writes two variants never seen before (from the list below) with at most one
-  hint each.
+  hint each, **and runnable as pasted** (added 2026-09-20: Stock II and
+  Partition Labels met the hint limit but Partition Labels never ran as pasted
+  in three attempts; unrunnable code fails an interview regardless of logic).
 - Can say the exchange argument for each in one sentence.
 
 ## Revised 2026-09-19: the gap is idea-to-code
@@ -29,6 +31,10 @@ leaks.
    loop and an update inside it. No variable in the code that is not in the
    table, no row in the table that is not in the code. Re-read every name once
    for consistency (attempt 3 typos).
+2b. **Name audit, thirty seconds.** Write two lists: every name assigned in
+   the function, every name read. Any name in the second list and not the
+   first is a crash. Added 2026-09-20 after the same two names broke in two
+   consecutive attempts while the table had them right.
 3. **Self-trace on two inputs before submitting.** The textbook example, and
    a one-element input. First write out the exact list of i values the loop
    visits, computed from the range expression, and trace only those rows

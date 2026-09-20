@@ -25,6 +25,7 @@ fewer hints, and harder problems.
 | 2026-09-20 (session 2) | Stock II, fix | Medium | A | Correct | 1 total | Yes | Bound fixed to `range(sz - 1)`; passes 10000 random arrays vs DP. But the two accompanying traces were wrong: every gain written as 0 on [1,2] (answer 1) and [1,2,3,4,5] (answer 4). The i columns now match the loop. The trace's final value disagreed with the known expected output and this was not flagged. |
 | 2026-09-20 (session 2) | Partition Labels (LC 763), unseen variant, attempt 1 | Medium | A | Incorrect | 1 | Partly | Key insight correct (last occurrence of each letter decides the extent). State table effectively skipped: one row with a prose change column, no precomputation row, no row for the running farthest or the part start. Code: crashes with TypeError because `for c, i in enumerate(...)` swaps index and char; with that fixed, the cut condition compares i against a pre-set boundary copied from Jump Game II, so after the first part the boundary never moves (part_ids [0, 8], then nothing). Also `part_len` vs `part_lens` (name class, third time), the length-conversion loop bound is `sz - 1` instead of the number of parts, and the end-of-string append sits inside the loop and would fire repeatedly. Hint given: the cut fires when i reaches the running farthest itself, unlike Jump Game II. |
 | 2026-09-20 (session 2) | Partition Labels, attempt 2 | Medium | A | Incorrect | 1 (no new hint) | Partly | Cut condition now correct (i equals the running farthest). Table and traces skipped again despite an explicit request. Three name mismatches in 16 lines: `char_end` vs `char_ends`, `part_strat` vs `part_start`, `max_part_id` initialised but `last_part_id` used (NameError as pasted). With names made consistent, one boundary bug: the next part's start is set to i instead of i + 1, so every part after the first is one too long: [9, 8, 9] instead of [9, 7, 8], and "ab" gives [1, 2]. Coach now requires table and traces before running further pastes. |
+| 2026-09-20 (session 2) | Partition Labels, attempt 3 | Medium | A | Logic correct; not runnable as pasted | 1 total | Yes | Full table provided (one row's formula still says the old `= max_part_end` while the code correctly says `i + 1`). Boundary fixed. With names made consistent, passes 10000 random strings. As pasted: NameError, and the two broken names are the same two as attempt 2, unchanged: `char_end` read where `char_ends` is defined, and `last_part_end` read where `max_part_end` is defined. The table itself has the right names, so the code deviated from the table. Traces skipped a third time. |
 
 ## Skills checklist
 
@@ -46,7 +47,7 @@ fewer hints, and harder problems.
   the same day after drill 1 showed the gap is idea-to-code, not the idea.
 - Drill 1 logic passed on attempt 4 (2026-09-19). Learner then wrote Jump Game in code and the add-vs-max slip returned.
 - Session 2 (2026-09-19): Jump Game and Jump Game II both passed cold on first paste under the protocol. Time per drill not measured; exit criterion 1 counted as met on correctness, timing to be checked once.
-- Exit criterion 2 (two unseen variants, at most one hint each): Stock II done with 1 hint (2026-09-20). Partition Labels next.
+- Exit criterion 2 (two unseen variants, at most one hint each): Stock II done with 1 hint, Partition Labels logic done with 1 hint (2026-09-20). Criterion met on hints, NOT on runnability: Partition Labels was never runnable as pasted in three attempts. Criterion amended, see drill plan.
 - Then Stock II, Partition Labels, Gas Station, Video Stitching (stretch),
   each under the same protocol, scored per stage.
 - Pattern B starts once the exit criteria in the drill plan are met.
@@ -66,6 +67,9 @@ Attempt 3 is a different kind of wrong from attempts 1 and 2: the algorithm
 is fully present and only a boundary is off. That is progress, not noise.
 
 ## Protocol observations
+
+- 2026-09-20: Name mismatches are now the dominant failure. Partition Labels attempts 2 and 3 broke the same two names. Step 2b added to the protocol: a name audit (list every name assigned, list every name read, diff them) before step 3.
+- 2026-09-20: Step 3 traces skipped on three consecutive pastes. Next drill uses a two-character input for the trace so it costs under a minute.
 
 - 2026-09-20: Partition Labels attempt 1 skipped the state table (one vague row) and the code had five distinct problems. The two cold passes earlier the same day both had full tables. Strongest evidence yet that the table is load-bearing, not ceremony.
 
