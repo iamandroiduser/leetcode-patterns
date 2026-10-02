@@ -1,6 +1,8 @@
 # Greedy Algorithms — Study Track
 
-Personal study notes and progress log for the Greedy pattern. Lessons live in
+Personal study notes for the Greedy pattern. Progress is now tracked in
+`notes/coach/status.md` (generated from `notes/coach/log/`); `progress.md`
+here is the prose record up to 2026-09-22. Lessons live in
 this folder, one file per pattern. `progress.md` is the running record used to
 plan the next session and to track improvement over time.
 

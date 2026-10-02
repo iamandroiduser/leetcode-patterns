@@ -1,0 +1,51 @@
+{
+  "source": "chat",
+  "as_of": "2026-09-19",
+  "problems": {
+    "gr-a1": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-19", "kind": "rep", "result": "shaky", "verified": true}],
+      "slips": []
+    },
+    "gr-a2": {
+      "status": "failed",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-19", "kind": "solve", "result": "failed", "verified": true}],
+      "slips": [
+        "measured fuel from 'the last index I was at', i.e. committed to a landing spot",
+        "hand trace: fuel = fuel - 1 + nums[i] instead of max(fuel - 1, nums[i])",
+        "code written unprompted at end of day used fuel += nums[i]; fails [3,2,1,0,4]"
+      ]
+    },
+    "gr-a3": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-19", "kind": "solve", "result": "shaky", "verified": true}],
+      "slips": [
+        "attempt 1: jump += 1 on every index; one-element input returned 1",
+        "attempt 2: incremented whenever the farthest reach improved",
+        "attempt 3: loop guard hi < sz ran one extra layer; low vs lo, num vs nums",
+        "attempt 4: logic correct; jmp initialised but jump incremented; missing parenthesis"
+      ]
+    }
+  },
+  "errors": [
+    {"tag": "commit-early", "date": "2026-09-19", "note": "gr-a2: fuel measured from the last landing index"},
+    {"tag": "add-vs-max", "date": "2026-09-19", "note": "gr-a2: added reach instead of taking the max, in a hand trace"},
+    {"tag": "add-vs-max", "date": "2026-09-19", "note": "gr-a2: same slip again in code the same day, after correction"},
+    {"tag": "state-dropped", "date": "2026-09-19", "note": "gr-a3: layer boundary present in the verbal description, absent in code (attempts 1 and 2)"},
+    {"tag": "boundary", "date": "2026-09-19", "note": "gr-a3: one-element case returned 1"},
+    {"tag": "boundary", "date": "2026-09-19", "note": "gr-a3: loop guard hi < sz ran one extra layer"},
+    {"tag": "name-mismatch", "date": "2026-09-19", "note": "gr-a3: low vs lo, num vs nums"},
+    {"tag": "name-mismatch", "date": "2026-09-19", "note": "gr-a3: jmp vs jump"}
+  ],
+  "anchors": [
+    {"id": "gr-a1", "phrase": "the lowest number that I've seen so far because that would be the time when I should have bought"},
+    {"id": "gr-a3", "phrase": "if my idx reached the last possible one that i could have done in the current jumping capacity, then I need 1 more jump"}
+  ],
+  "open_items": [
+    {"id": null, "note": "Learner's own diagnosis: thinking is often right, implementation invariably wrong. Four-step protocol adopted (state table, code row by row, self-trace, run)."}
+  ],
+  "suspect_turns": "none"
+}

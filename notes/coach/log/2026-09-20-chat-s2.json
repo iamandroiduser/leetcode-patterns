@@ -1,0 +1,69 @@
+{
+  "source": "chat",
+  "as_of": "2026-09-20",
+  "problems": {
+    "gr-a2": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-19", "kind": "solve", "result": "shaky", "verified": true}],
+      "slips": [
+        "state table change column first said when, not what",
+        "self-trace skipped; done after the fact on request"
+      ]
+    },
+    "gr-a3": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-19", "kind": "solve", "result": "shaky", "verified": true}],
+      "slips": [
+        "first table put the jump condition on the farthest variable and defined the layer end per index; caught in the table",
+        "own trace found the extra jump at the last index before code; chose early exit plus one-element guard",
+        "trace on [1,1,1,1] not done"
+      ]
+    },
+    "gr-a4": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-20", "kind": "solve", "result": "shaky", "verified": true}],
+      "slips": [
+        "exit row requested and skipped; loop bound range(sz - 2) missed the last pair",
+        "trace had 5 rows for a loop that visits 4 indexes",
+        "after the fix, traces wrote gain 0 on inputs whose answers are 1 and 4; mismatch not flagged"
+      ]
+    },
+    "gr-a5": {
+      "status": "shaky",
+      "self_rating": "not asked",
+      "exposures": [{"date": "2026-09-20", "kind": "solve", "result": "shaky", "verified": true}],
+      "slips": [
+        "attempt 1: table skipped; for c, i in enumerate swapped roles; cut compared against a pre-set boundary copied from gr-a3",
+        "attempt 2: char_end vs char_ends, part_strat vs part_start, max_part_id vs last_part_id; next part started at i instead of i + 1",
+        "attempt 3: same two names still broken while the table had them right",
+        "attempt 4: runnable; table row still says part_start = i where code says i + 1"
+      ]
+    }
+  },
+  "errors": [
+    {"tag": "trace-skipped", "date": "2026-09-19", "note": "gr-a2: step 3 not done before paste"},
+    {"tag": "trace-skipped", "date": "2026-09-19", "note": "gr-a3: one of the three requested traces not done"},
+    {"tag": "boundary", "date": "2026-09-20", "note": "gr-a4: range(sz - 2) one short"},
+    {"tag": "trace-not-code", "date": "2026-09-20", "note": "gr-a4: trace rows did not match the loop's visited indexes"},
+    {"tag": "trace-not-code", "date": "2026-09-20", "note": "gr-a4: trace values all 0 against expected 1 and 4, not flagged"},
+    {"tag": "state-dropped", "date": "2026-09-20", "note": "gr-a5: table skipped; running farthest and part start had no rows"},
+    {"tag": "commit-early", "date": "2026-09-20", "note": "gr-a5: cut compared to a pre-set boundary instead of the running farthest"},
+    {"tag": "name-mismatch", "date": "2026-09-20", "note": "gr-a5: enumerate unpacked as (c, i)"},
+    {"tag": "name-mismatch", "date": "2026-09-20", "note": "gr-a5: char_end vs char_ends, part_strat vs part_start, max_part_id vs last_part_id"},
+    {"tag": "name-mismatch", "date": "2026-09-20", "note": "gr-a5: same two names broken again in attempt 3"},
+    {"tag": "boundary", "date": "2026-09-20", "note": "gr-a5: next part started at i instead of i + 1"},
+    {"tag": "trace-skipped", "date": "2026-09-20", "note": "gr-a5: traces skipped on three consecutive pastes"}
+  ],
+  "anchors": [
+    {"id": "gr-a2", "phrase": "at the current idx, i can either take its value as fuel and keep moving or keep moving with what i already have, the way to decide is which one is greater"},
+    {"id": "gr-a5", "phrase": "the number that matters is the last index where we see the instance of the letter in the array, as we partition at that idx, including idx"}
+  ],
+  "open_items": [
+    {"id": null, "note": "Protocol additions: list visited i values before tracing; end every trace with match/mismatch; name audit (assigned vs read) before tracing."},
+    {"id": null, "note": "Exit criterion amended: variants must also be runnable as pasted."}
+  ],
+  "suspect_turns": "none"
+}

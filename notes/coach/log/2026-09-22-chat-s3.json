@@ -1,0 +1,15 @@
+{
+  "source": "chat",
+  "as_of": "2026-09-22",
+  "problems": {},
+  "errors": [
+    {"tag": "state-dropped", "date": "2026-09-22", "note": "gr-a6: fuel reset present in the trace, absent from the table"},
+    {"tag": "misread-input", "date": "2026-09-22", "note": "gr-a6: concluded 'total gas = total cost returns -1' although his own answer to Q1 said strictly less than"}
+  ],
+  "anchors": [],
+  "open_items": [
+    {"id": "gr-a6", "note": "Drill in progress, not finished. Q1 correct. Q2 conclusion right, reasoning wrong (exchange argument given as the one hint). Table had fuel without its reset, cur_start with 'when' not 'what', and an is_loop row that the total check makes unnecessary. Awaiting rewritten table, code, name audit, trace on gas=[1,2], cost=[2,1] (expected 1)."},
+    {"id": null, "note": "Decision 2026-09-20: Gas Station is the last Pattern A item; Pattern B starts next regardless, beginning with gr-b1."}
+  ],
+  "suspect_turns": "none"
+}
